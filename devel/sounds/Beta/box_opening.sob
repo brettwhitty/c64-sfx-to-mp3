@@ -1,0 +1,27 @@
+; box_opening:
+;		Uses no PW ramp
+	byte	0x2d		;Gate Ramp ADSR Wave 
+	byte	0x0,0x15,0x8,0x0,0x20,0x1	; Start_Freq,Duration,Increment
+	byte	0x9a,0x0	; ADSR
+	byte	0x80	; Waveform
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+
+
+; ## start_sound_effect
+;
+; 1) transfer effect # to index y
+; # tay	(accumulator is storing effect #) 
+;
+; 2) set sound effect number for voice (x) queue to 0xff (ie: unqueue)
+; # x[sound_effect_number] = 0xff (-1)
+; 
+; 3) set sound effect's loop counter to 0
+; # lda #0 (accumulator a = 0)
+; # sta x[loop_count] (x[loop_count] = a = 0)
+
+
