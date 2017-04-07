@@ -279,8 +279,27 @@ my $basic_three = <<BASIC_THREE;
 3999 DATA0
 BASIC_THREE
 
+my $gunshot = <<GUNSHOT;
+5 s=54272
+10 forl=stos+24:pokel,0:next:rem clear sound chip
+20 poke54296,15:rem set max volume
+100 rem start of sound block
+110 poke54277,15:rem attack decay
+120 poke54278,244:rem sustain release
+210 poke54273,255:poke54272,128:rem highfreq lowfreq
+220 poke54276,129:rem waveform
+230 fort=1to150:next:rem note duration
+240 poke54276,128:rem turn off note
+250 fort=1to50:next:rem pause duration
+310 poke54273,0:poke54272,16
+320 poke54276,129:rem waveform
+330 fort=1to450:next:rem note duration
+340 poke54276,128:rem turn off note
+350 fort=1to250:next:rem pause duration
+GUNSHOT
+
 ## trying to make sure the string is latin1 (1 byte chars) not UTF8
-$basic_three = encoder($basic_three)->latin1;
+$basic_three = encoder($gunshot)->latin1;
 
 ## write the basic program to a temp file
 write_file($tmp_txt, ($basic_three));
